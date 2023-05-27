@@ -1,0 +1,3 @@
+external:
+  open-meteo:
+    url: 'http://localhost:${test.server.port:2222}'

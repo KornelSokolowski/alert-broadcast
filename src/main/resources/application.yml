@@ -1,0 +1,3 @@
+external:
+  open-meteo:
+    url: https://air-quality-api.open-meteo.com
