@@ -1,15 +1,18 @@
 package com.app.alertbroadcast.client.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import lombok.*;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
-public class HourlyUnits {
+@JsonDeserialize(using = HourlyUnitsDeserializer.class)
+public abstract class HourlyUnits {
+
+    @JsonProperty("time")
     private String time;
-    @JsonProperty("grass_pollen")
-    private String grassPollen;
+
 }

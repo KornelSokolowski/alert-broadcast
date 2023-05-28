@@ -1,7 +1,8 @@
 package com.app.alertbroadcast.client.feign;
 
 import com.app.alertbroadcast.client.AbstractMockedServerIT;
-import com.app.alertbroadcast.client.model.GrassPollenMetric;
+import com.app.alertbroadcast.client.model.GenericMetric;
+import com.app.alertbroadcast.client.model.pollen.PollenType;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
 import org.junit.jupiter.api.Test;
@@ -23,28 +24,45 @@ class OpenMeteoClientTest extends AbstractMockedServerIT {
     private OpenMeteoClient openMeteoClient;
 
     @Test
-    void getMetrics(SoftAssertions softly) {
+    void getGrassMetrics(SoftAssertions softly) {
         prepareMockedResponseFromFile("/v1/air-quality",
                 "sample-response.json");
-        LocalDate start = LocalDate.now();
+        LocalDate start = LocalDate.of(2023, 5, 27);
         LocalDate end = start.plusDays(2);
         Double latitude = 52.249996;
         Double longitude = 16.75;
-        String hourly = "grass_pollen";
-        GrassPollenMetric grassPollenMetric = openMeteoClient.getMetrics(latitude, longitude, hourly, start, end);
+        GenericMetric genericMetric = openMeteoClient.getMetrics(latitude, longitude, PollenType.GRASS.getValue(), start, end);
 
-        softly.assertThat(grassPollenMetric)
-                .returns(latitude, GrassPollenMetric::getLatitude)
-                .returns(longitude, GrassPollenMetric::getLongitude)
+        softly.assertThat(genericMetric)
+                .returns(latitude, GenericMetric::getLatitude)
+                .returns(longitude, GenericMetric::getLongitude)
                 .returns(start, this::getStartTime)
                 .returns(end, this::getEndTime);
     }
 
-    private LocalDate getStartTime(GrassPollenMetric grassPollenMetric) {
-        return grassPollenMetric.getHourly().getTime().get(0).toLocalDate();
+    @Test
+    void getAlderMetrics(SoftAssertions softly) {
+        prepareMockedResponseFromFile("/v1/air-quality",
+                "alder-pollen-response.json");
+        LocalDate start = LocalDate.of(2023, 5, 27);
+        LocalDate end = start.plusDays(2);
+        Double latitude = 52.549995;
+        Double longitude = 13.450001;
+        GenericMetric genericMetric = openMeteoClient.getMetrics(latitude, longitude, PollenType.ALDER.getValue(), start, end);
+
+        softly.assertThat(genericMetric)
+                .returns(latitude, GenericMetric::getLatitude)
+                .returns(longitude, GenericMetric::getLongitude)
+                .returns(start, this::getStartTime)
+                .returns(end, this::getEndTime);
     }
 
-    private LocalDate getEndTime(GrassPollenMetric grassPollenMetric) {
-        return grassPollenMetric.getHourly().getTime().get(grassPollenMetric.getHourly().getTime().size() - 1).toLocalDate();
+
+    private LocalDate getStartTime(GenericMetric genericMetric) {
+        return genericMetric.getHourly().getTime().get(0).toLocalDate();
+    }
+
+    private LocalDate getEndTime(GenericMetric genericMetric) {
+        return genericMetric.getHourly().getTime().get(genericMetric.getHourly().getTime().size() - 1).toLocalDate();
     }
 }
