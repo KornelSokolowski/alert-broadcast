@@ -1,3 +1,5 @@
 external:
-  open-meteo:
+  open-meteo-air-quality:
     url: https://air-quality-api.open-meteo.com
+  open-meteo-geocoding:
+    url: https://geocoding-api.open-meteo.com

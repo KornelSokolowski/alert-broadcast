@@ -1,3 +1,5 @@
 external:
-  open-meteo:
+  open-meteo-air-quality:
     url: 'http://localhost:${test.server.port:2222}'
+  open-meteo-geocoding:
+    url: http://localhost:${test.server.port:2222}

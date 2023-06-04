@@ -1,4 +1,4 @@
-package com.app.alertbroadcast.client.model.pollen;
+package com.app.alertbroadcast.client.model.airquality.pollen;
 
 public enum PollenType {
 
