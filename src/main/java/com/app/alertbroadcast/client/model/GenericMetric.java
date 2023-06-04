@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class GrassPollenMetric {
+public class GenericMetric {
+
     private Double latitude;
     private Double longitude;
     @JsonProperty("generationtime_ms")
