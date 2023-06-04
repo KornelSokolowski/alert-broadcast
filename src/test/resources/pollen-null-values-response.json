@@ -1,0 +1,20 @@
+{
+  "latitude": 52.549995,
+  "longitude": 16.75,
+  "generationtime_ms": 0.23496150970458984,
+  "utc_offset_seconds": 0,
+  "timezone": "GMT",
+  "timezone_abbreviation": "GMT",
+  "hourly_units": {
+    "time": "iso8601",
+    "grass_pollen": "grains/m³"
+  },
+  "hourly": {
+    "time": [
+      null
+    ],
+    "grass_pollen": [
+      null
+    ]
+  }
+}

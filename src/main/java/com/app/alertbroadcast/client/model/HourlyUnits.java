@@ -10,9 +10,11 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @JsonDeserialize(using = HourlyUnitsDeserializer.class)
-public abstract class HourlyUnits {
+public class HourlyUnits {
 
     @JsonProperty("time")
     private String time;
+
+    private String pollen;
 
 }

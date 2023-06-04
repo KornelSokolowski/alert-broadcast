@@ -3,9 +3,11 @@ package com.app.alertbroadcast;
 import com.app.alertbroadcast.client.feign.OpenMeteoClient;
 import com.app.alertbroadcast.client.model.GenericMetric;
 import com.app.alertbroadcast.client.model.pollen.PollenType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 
@@ -22,5 +24,4 @@ public class AlertBroadcastApplication {
         System.out.println();
         System.out.println(grass);
     }
-
 }

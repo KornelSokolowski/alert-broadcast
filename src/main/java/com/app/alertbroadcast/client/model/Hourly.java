@@ -13,9 +13,10 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @JsonDeserialize(using = HourlyDeserializer.class)
-public abstract class Hourly {
+public class Hourly {
 
-    @JsonProperty("time")
     private List<LocalDateTime> time;
+
+    private List<Double> pollen;
 
 }
