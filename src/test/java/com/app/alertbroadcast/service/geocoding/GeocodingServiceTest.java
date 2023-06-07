@@ -1,6 +1,7 @@
 package com.app.alertbroadcast.service.geocoding;
 
 import com.app.alertbroadcast.client.feign.OpenMeteoGeocodingClient;
+import com.app.alertbroadcast.client.model.geocoding.Coordinates;
 import com.app.alertbroadcast.client.model.geocoding.Geocoding;
 import com.app.alertbroadcast.client.model.geocoding.Language;
 import com.app.alertbroadcast.client.model.geocoding.Results;
@@ -12,11 +13,17 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class GeocodingServiceTest {
+
+    private static final String NAME = "Łódź";
+    private static final Integer COUNT = 10;
+    private static final String LANGUAGE = Language.EN.name();
+    private static final String FORMAT = "json";
 
     @Mock
     private OpenMeteoGeocodingClient openMeteoGeocodingClient;
@@ -25,15 +32,30 @@ class GeocodingServiceTest {
 
     @Test
     void getGeocodingList() {
+
         Results results = new Results();
         results.setResults(createGeocodingList());
-        String name = "Łódź";
-        Integer count = 10;
-        String language = Language.EN.name();
-        String format = "json";
-        when(openMeteoGeocodingClient.getGeocoding(name, count, language, format)).thenReturn(results);
-        List<Geocoding> geocodingList = geocodingService.getGeocodingList(name);
+
+        when(openMeteoGeocodingClient.getGeocoding(NAME, COUNT, LANGUAGE, FORMAT)).thenReturn(results);
+        List<Geocoding> geocodingList = geocodingService.getGeocodingList(NAME);
         Assertions.assertThatList(geocodingList).hasSameElementsAs(createGeocodingList());
+    }
+
+    @Test
+    void getCoordinatesList() {
+     Coordinates coordinates = new Coordinates();
+     coordinates.setLatitude(49.68333);
+     coordinates.setLongitude(22.56667);
+        when(openMeteoGeocodingClient.getGeocoding(NAME, COUNT, LANGUAGE, FORMAT)).thenReturn(createResultList());
+        Optional<Coordinates> coordinates1 = geocodingService.getCoordinates(766067L, NAME);
+        Assertions.assertThat(coordinates1).hasValue(coordinates);
+
+    }
+
+    private Results createResultList() {
+        Results results = new Results();
+        results.setResults(createGeocodingList());
+        return results;
     }
 
     private List<Geocoding> createGeocodingList() {

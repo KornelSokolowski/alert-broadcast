@@ -35,21 +35,31 @@ public class OpenMeteoAirQualityClientTest extends AbstractMockedServerIT {
 
     private static final Double LATITUDE = 52.549995;
     private static final Double LONGITUDE = 16.75;
+    private static final Double generationTimeMs = 0.23496150970458984;
+    private static final Long utcOffsetSeconds = 0L;
+    private static final String timezone = "GMT";
+    private static final String timezoneAbbreviation = "GMT";
     private static final String URL_PATH = "/v1/air-quality";
     private static final LocalDate START = LocalDate.of(2023, 5, 27);
     private static final LocalDate END = START.plusDays(2);
 
     @Autowired
     private OpenMeteoAirQualityClient openMeteoAirQualityClient;
-// TODO dodac pola z Generic Metric do testów
+
+    // TODO dodac pola z Generic Metric do testów
     @ParameterizedTest
     @MethodSource("getMetricsArguments")
     void getNullMetrics(String path, HourlyUnits hourlyUnits, Hourly hourly, String pollenType, SoftAssertions softly) {
         prepareMockedResponseFromFile(URL_PATH, path);
+
         GenericMetric genericMetric = openMeteoAirQualityClient.getMetrics(LATITUDE, LONGITUDE, pollenType, START, END);
         softly.assertThat(genericMetric)
                 .returns(LATITUDE, GenericMetric::getLatitude)
-                .returns(LONGITUDE, GenericMetric::getLongitude);
+                .returns(LONGITUDE, GenericMetric::getLongitude)
+                .returns(generationTimeMs, GenericMetric::getGenerationTimeMs)
+                .returns(utcOffsetSeconds, GenericMetric::getUtcOffsetSeconds)
+                .returns(timezone, GenericMetric::getTimezone)
+                .returns(timezoneAbbreviation, GenericMetric::getTimezoneAbbreviation);
 
         softly.assertThat(genericMetric.getHourlyUnits())
                 .usingRecursiveComparison()

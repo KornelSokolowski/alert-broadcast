@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Getter
-@Setter
+//@Setter
 @Builder
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
-@ToString
+//@ToString
 @EqualsAndHashCode
 public class Geocoding {
     private Long id;
