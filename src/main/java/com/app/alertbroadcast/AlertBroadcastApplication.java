@@ -34,8 +34,6 @@ public class AlertBroadcastApplication {
         GeocodingService geocodingService = context.getBean(GeocodingService.class);
         geocodingService.getCoordinates(id,"Berlin")
                 .ifPresent(coordinates -> {
-                    Double latitude = coordinates.getLatitude();
-                    Double longitude = coordinates.getLongitude();
                     GenericMetric metrics = openMeteoAirQualityClient.
                             getMetrics(coordinates.getLatitude(), coordinates.getLongitude(), PollenType.GRASS.getValue(), start, end);
                     System.out.println(metrics);
