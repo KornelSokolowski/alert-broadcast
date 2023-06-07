@@ -1,14 +1,13 @@
 package com.app.alertbroadcast.client;
 
 import com.app.alertbroadcast.client.feign.FeignConfiguration;
-import com.app.alertbroadcast.client.feign.OpenMeteoClient;
-import com.app.alertbroadcast.client.model.GenericMetric;
-import com.app.alertbroadcast.client.model.Hourly;
-import com.app.alertbroadcast.client.model.HourlyUnits;
-import com.app.alertbroadcast.client.model.pollen.PollenType;
+import com.app.alertbroadcast.client.feign.OpenMeteoAirQualityClient;
+import com.app.alertbroadcast.client.model.airquality.GenericMetric;
+import com.app.alertbroadcast.client.model.airquality.Hourly;
+import com.app.alertbroadcast.client.model.airquality.HourlyUnits;
+import com.app.alertbroadcast.client.model.airquality.pollen.PollenType;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -25,28 +24,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-@SpringBootTest(classes = {FeignConfiguration.class, OpenMeteoClient.class})
+@SpringBootTest(classes = {FeignConfiguration.class, OpenMeteoAirQualityClient.class})
 @ImportAutoConfiguration({FeignAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class})
 @ExtendWith(SoftAssertionsExtension.class)
-public class OpenMeteoClientTest extends AbstractMockedServerIT {
+public class OpenMeteoAirQualityClientTest extends AbstractMockedServerIT {
 
     private static final Double LATITUDE = 52.549995;
     private static final Double LONGITUDE = 16.75;
+    private static final Double generationTimeMs = 0.23496150970458984;
+    private static final Long utcOffsetSeconds = 0L;
+    private static final String timezone = "GMT";
+    private static final String timezoneAbbreviation = "GMT";
     private static final String URL_PATH = "/v1/air-quality";
     private static final LocalDate START = LocalDate.of(2023, 5, 27);
     private static final LocalDate END = START.plusDays(2);
 
     @Autowired
-    private OpenMeteoClient openMeteoClient;
-// dodac pola z Generic Metric do testów
+    private OpenMeteoAirQualityClient openMeteoAirQualityClient;
+
+    // TODO dodac pola z Generic Metric do testów
     @ParameterizedTest
     @MethodSource("getMetricsArguments")
     void getNullMetrics(String path, HourlyUnits hourlyUnits, Hourly hourly, String pollenType, SoftAssertions softly) {
         prepareMockedResponseFromFile(URL_PATH, path);
-        GenericMetric genericMetric = openMeteoClient.getMetrics(LATITUDE, LONGITUDE, pollenType, START, END);
+
+        GenericMetric genericMetric = openMeteoAirQualityClient.getMetrics(LATITUDE, LONGITUDE, pollenType, START, END);
         softly.assertThat(genericMetric)
                 .returns(LATITUDE, GenericMetric::getLatitude)
-                .returns(LONGITUDE, GenericMetric::getLongitude);
+                .returns(LONGITUDE, GenericMetric::getLongitude)
+                .returns(generationTimeMs, GenericMetric::getGenerationTimeMs)
+                .returns(utcOffsetSeconds, GenericMetric::getUtcOffsetSeconds)
+                .returns(timezone, GenericMetric::getTimezone)
+                .returns(timezoneAbbreviation, GenericMetric::getTimezoneAbbreviation);
 
         softly.assertThat(genericMetric.getHourlyUnits())
                 .usingRecursiveComparison()

@@ -1,6 +1,6 @@
-package com.app.alertbroadcast.client.model;
+package com.app.alertbroadcast.client.model.airquality;
 
-import com.app.alertbroadcast.client.model.pollen.PollenType;
+import com.app.alertbroadcast.client.model.airquality.pollen.PollenType;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;

@@ -1,4 +1,4 @@
-package com.app.alertbroadcast.client.model;
+package com.app.alertbroadcast.client.model.airquality;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
