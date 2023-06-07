@@ -23,9 +23,11 @@ public class AlertBroadcastApplication {
         LocalDate end = start.plusDays(3);
         GenericMetric alder = openMeteoAirQualityClient.getMetrics(52.249996, 16.75, PollenType.ALDER.getValue(), start, start);
         GenericMetric grass = openMeteoAirQualityClient.getMetrics(52.249996, 16.75, PollenType.GRASS.getValue(), start, start);
-        System.out.println(alder);
+        GenericMetric birch = openMeteoAirQualityClient.getMetrics(52.249996, 16.75, PollenType.BIRCH.getValue(), start, start);
+    //    System.out.println(alder);
         System.out.println();
-        System.out.println(grass);
+     //   System.out.println(grass);
+   //     System.out.println(birch);
 
         OpenMeteoGeocodingClient geocodingClient = context.getBean(OpenMeteoGeocodingClient.class);
         Results geocoding = geocodingClient.getGeocoding("Berlin", 10, Language.EN.name(), "json");
@@ -35,7 +37,7 @@ public class AlertBroadcastApplication {
         geocodingService.getCoordinates(id,"Berlin")
                 .ifPresent(coordinates -> {
                     GenericMetric metrics = openMeteoAirQualityClient.
-                            getMetrics(coordinates.getLatitude(), coordinates.getLongitude(), PollenType.GRASS.getValue(), start, end);
+                            getMetrics(coordinates.getLatitude(), coordinates.getLongitude(), PollenType.BRICH.getValue(), start, end);
                     System.out.println(metrics);
                 });
     }

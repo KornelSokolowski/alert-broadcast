@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 //@NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
-//@ToString
+@ToString
 @EqualsAndHashCode
 public class Geocoding {
     private Long id;
