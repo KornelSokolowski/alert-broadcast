@@ -5,7 +5,7 @@ import com.app.alertbroadcast.client.feign.OpenMeteoAirQualityClient;
 import com.app.alertbroadcast.client.model.airquality.GenericMetric;
 import com.app.alertbroadcast.client.model.airquality.Hourly;
 import com.app.alertbroadcast.client.model.airquality.HourlyUnits;
-import com.app.alertbroadcast.client.model.airquality.pollen.PollenType;
+import com.app.alertbroadcast.client.model.airquality.pollen.PollutionType;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,13 +42,13 @@ public class OpenMeteoAirQualityClientTest extends AbstractMockedServerIT {
     @Autowired
     private OpenMeteoAirQualityClient openMeteoAirQualityClient;
 
-    // TODO dodac pola z Generic Metric do testów
+
     @ParameterizedTest
-    @MethodSource("getMetricsArguments")
-    void getNullMetrics(String path, HourlyUnits hourlyUnits, Hourly hourly, String pollenType, SoftAssertions softly) {
+    @MethodSource("getPollenMetricsArguments")
+    void getPollenMetrics(String path, HourlyUnits hourlyUnits, Hourly hourly, String pollutionType, SoftAssertions softly) {
         prepareMockedResponseFromFile(URL_PATH, path);
 
-        GenericMetric genericMetric = openMeteoAirQualityClient.getMetrics(LATITUDE, LONGITUDE, pollenType, START, END);
+        GenericMetric genericMetric = openMeteoAirQualityClient.getMetrics(LATITUDE, LONGITUDE, pollutionType, START, END);
         softly.assertThat(genericMetric)
                 .returns(LATITUDE, GenericMetric::getLatitude)
                 .returns(LONGITUDE, GenericMetric::getLongitude)
@@ -65,17 +65,155 @@ public class OpenMeteoAirQualityClientTest extends AbstractMockedServerIT {
                 .isEqualTo(hourly);
     }
 
-    private static Stream<Arguments> getMetricsArguments() {
+    private static Stream<Arguments> getPollenMetricsArguments() {
         return Stream.of(
-                Arguments.of("pollen-null-values-response.json", createHourlyUnits(), createHourlyWithArraysContainingNulls(), PollenType.GRASS.getValue()),
-                Arguments.of("pollen-null-object-response.json", null, null, PollenType.GRASS.getValue()),
-                Arguments.of("pollen-dymmy-value-response.json", createHourlyUnits(), new Hourly(), PollenType.GRASS.getValue()),
-                Arguments.of("pollen-correctly-response.json", createHourlyUnits(), createHourly(), PollenType.GRASS.getValue()),
+                Arguments.of("pollen-null-values-response.json", createHourlyUnits(), createHourlyWithArraysContainingNulls(), PollutionType.GRASS.getValue()),
+                Arguments.of("pollen-null-object-response.json", null, null, PollutionType.GRASS.getValue()),
+                Arguments.of("pollen-dummy-value-response.json", createHourlyUnits(), new Hourly(), PollutionType.GRASS.getValue()),
+                Arguments.of("pollen-correctly-response.json", createHourlyUnits(), createHourly(), PollutionType.GRASS.getValue()),
 
-                Arguments.of("pollen-null-values-response.json", createHourlyUnits(), createHourlyWithArraysContainingNulls(), PollenType.ALDER.getValue()),
-                Arguments.of("pollen-null-object-response.json", null, null, PollenType.ALDER.getValue()),
-                Arguments.of("pollen-dymmy-value-response.json", createHourlyUnits(), new Hourly(), PollenType.ALDER.getValue()),
-                Arguments.of("pollen-correctly-response.json", createHourlyUnits(), createHourly(), PollenType.ALDER.getValue())
+                Arguments.of("pollen-null-values-response.json", createHourlyUnits(), createHourlyWithArraysContainingNulls(), PollutionType.ALDER.getValue()),
+                Arguments.of("pollen-null-object-response.json", null, null, PollutionType.ALDER.getValue()),
+                Arguments.of("pollen-dummy-value-response.json", createHourlyUnits(), new Hourly(), PollutionType.ALDER.getValue()),
+                Arguments.of("pollen-correctly-response.json", createHourlyUnits(), createHourly(), PollutionType.ALDER.getValue()),
+
+                Arguments.of("pollen-null-values-response.json", createHourlyUnits(), createHourlyWithArraysContainingNulls(), PollutionType.BIRCH.getValue()),
+                Arguments.of("pollen-null-object-response.json", null, null, PollutionType.BIRCH.getValue()),
+                Arguments.of("pollen-dummy-value-response.json", createHourlyUnits(), new Hourly(), PollutionType.BIRCH.getValue()),
+                Arguments.of("pollen-correctly-response.json", createHourlyUnits(), createHourly(), PollutionType.BIRCH.getValue()),
+
+                Arguments.of("pollen-null-values-response.json", createHourlyUnits(), createHourlyWithArraysContainingNulls(), PollutionType.MUGWORT.getValue()),
+                Arguments.of("pollen-null-object-response.json", null, null, PollutionType.MUGWORT.getValue()),
+                Arguments.of("pollen-dummy-value-response.json", createHourlyUnits(), new Hourly(), PollutionType.MUGWORT.getValue()),
+                Arguments.of("pollen-correctly-response.json", createHourlyUnits(), createHourly(), PollutionType.MUGWORT.getValue()),
+
+                Arguments.of("pollen-null-values-response.json", createHourlyUnits(), createHourlyWithArraysContainingNulls(), PollutionType.OLIVE.getValue()),
+                Arguments.of("pollen-null-object-response.json", null, null, PollutionType.OLIVE.getValue()),
+                Arguments.of("pollen-dummy-value-response.json", createHourlyUnits(), new Hourly(), PollutionType.OLIVE.getValue()),
+                Arguments.of("pollen-correctly-response.json", createHourlyUnits(), createHourly(), PollutionType.OLIVE.getValue()),
+
+                Arguments.of("pollen-null-values-response.json", createHourlyUnits(), createHourlyWithArraysContainingNulls(), PollutionType.RAGWEED.getValue()),
+                Arguments.of("pollen-null-object-response.json", null, null, PollutionType.RAGWEED.getValue()),
+                Arguments.of("pollen-dummy-value-response.json", createHourlyUnits(), new Hourly(), PollutionType.RAGWEED.getValue()),
+                Arguments.of("pollen-correctly-response.json", createHourlyUnits(), createHourly(), PollutionType.RAGWEED.getValue())
+
+        );
+    }
+
+    @ParameterizedTest()
+    @MethodSource("getSmogMetricsArguments")
+    void getSmogMetrics(String path, HourlyUnits hourlyUnits, Hourly hourly, String smog, SoftAssertions softly) {
+        prepareMockedResponseFromFile(URL_PATH, path);
+        GenericMetric genericMetric = openMeteoAirQualityClient.getMetrics(LATITUDE, LONGITUDE, smog, START, END);
+        softly.assertThat(genericMetric)
+                .returns(LATITUDE, GenericMetric::getLatitude)
+                .returns(LONGITUDE, GenericMetric::getLongitude)
+                .returns(generationTimeMs, GenericMetric::getGenerationTimeMs)
+                .returns(utcOffsetSeconds, GenericMetric::getUtcOffsetSeconds)
+                .returns(timezone, GenericMetric::getTimezone)
+                .returns(timezoneAbbreviation, GenericMetric::getTimezoneAbbreviation);
+        softly.assertThat(genericMetric.getHourlyUnits())
+                .usingRecursiveComparison()
+                .isEqualTo(hourlyUnits);
+        softly.assertThat(genericMetric.getHourly())
+                .usingRecursiveComparison()
+                .isEqualTo(hourly);
+
+    }
+
+    private static Stream<Arguments> getSmogMetricsArguments() {
+        return Stream.of(
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.PM10.getValue()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.PM10.getValue()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.PM10.getValue()),
+                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.PM10.getValue()),
+
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.PM25.getValue()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.PM25.getValue()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.PM25.getValue()),
+                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.PM25.getValue()),
+
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.DUST.getValue()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.DUST.getValue()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.DUST.getValue()),
+                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.DUST.getValue()),
+
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.PM10.getValue()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.PM10.getValue()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.PM10.getValue()),
+                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.PM10.getValue()),
+
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.CO.getValue()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.CO.getValue()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.CO.getValue()),
+                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.CO.getValue()),
+
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.NO2.getValue()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.NO2.getValue()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.NO2.getValue()),
+                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.NO2.getValue()),
+
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.SO2.getValue()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.SO2.getValue()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.SO2.getValue()),
+                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.SO2.getValue()),
+
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.O3.getValue()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.O3.getValue()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.O3.getValue()),
+                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.O3.getValue()),
+
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.NH3.getValue()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.NH3.getValue()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.NH3.getValue()),
+                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.NH3.getValue()),
+
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.DUST.getValue()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.DUST.getValue()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.DUST.getValue()),
+                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.DUST.getValue())
+        );
+    }
+
+    @ParameterizedTest()
+    @MethodSource("getIndexMetrics")
+    void getIndexMetrics(String path, HourlyUnits hourlyUnits, Hourly hourly, String index, SoftAssertions softly) {
+        prepareMockedResponseFromFile(URL_PATH, path);
+        GenericMetric genericMetric = openMeteoAirQualityClient.getMetrics(LATITUDE, LONGITUDE, index, START, END);
+        softly.assertThat(genericMetric)
+                .returns(LATITUDE, GenericMetric::getLatitude)
+                .returns(LONGITUDE, GenericMetric::getLongitude)
+                .returns(generationTimeMs, GenericMetric::getGenerationTimeMs)
+                .returns(utcOffsetSeconds, GenericMetric::getUtcOffsetSeconds)
+                .returns(timezone, GenericMetric::getTimezone)
+                .returns(timezoneAbbreviation, GenericMetric::getTimezoneAbbreviation);
+        softly.assertThat(genericMetric.getHourlyUnits())
+                .usingRecursiveComparison()
+                .isEqualTo(hourlyUnits);
+        softly.assertThat(genericMetric.getHourly())
+                .usingRecursiveComparison()
+                .isEqualTo(hourly);
+
+    }
+
+    private static Stream<Arguments> getIndexMetrics() {
+        return Stream.of(
+                Arguments.of("index-correctly-response.json", createHourlyUnitswithEmptyPollenType(), createHourlyForIndexMetrics(), PollutionType.AOD.getValue()),
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.AOD.getValue()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.AOD.getValue()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.AOD.getValue()),
+
+                Arguments.of("index-correctly-response.json", createHourlyUnitswithEmptyPollenType(), createHourlyForIndexMetrics(), PollutionType.UVINDEX.getValue()),
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.UVINDEX.getValue()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.UVINDEX.getValue()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.UVINDEX.getValue()),
+
+                Arguments.of("index-correctly-response.json", createHourlyUnitswithEmptyPollenType(), createHourlyForIndexMetrics(), PollutionType.UVINDEXCLEARSKY.getValue()),
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.UVINDEXCLEARSKY.getValue()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.UVINDEXCLEARSKY.getValue()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.UVINDEXCLEARSKY.getValue())
+
+
         );
     }
 
@@ -93,9 +231,27 @@ public class OpenMeteoAirQualityClientTest extends AbstractMockedServerIT {
         return new Hourly(time, pollen);
     }
 
+    private static Hourly createHourlyForIndexMetrics() {
+        List<LocalDateTime> time = loadLocalDateTimeTestValues("date-test-values.txt");
+        List<Double> indexValues = loadDoubleTestValues("areosol-test-values.txt");
+        return new Hourly(time, indexValues);
+    }
+
     private static HourlyUnits createHourlyUnits() {
         String time = "iso8601";
         String pollen = "grains/m³";
+        return new HourlyUnits(time, pollen);
+    }
+
+    private static HourlyUnits createHourlyUnitsSmog() {
+        String time = "iso8601";
+        String pollen = "μg/m³";
+        return new HourlyUnits(time, pollen);
+    }
+
+    private static HourlyUnits createHourlyUnitswithEmptyPollenType() {
+        String time = "iso8601";
+        String pollen = "";
         return new HourlyUnits(time, pollen);
     }
 

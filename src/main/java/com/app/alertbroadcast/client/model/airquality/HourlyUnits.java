@@ -15,6 +15,6 @@ public class HourlyUnits {
     @JsonProperty("time")
     private String time;
 
-    private String pollen;
+    private String pollutionType;
 
 }
