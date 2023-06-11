@@ -3,7 +3,7 @@ package com.app.alertbroadcast;
 import com.app.alertbroadcast.client.feign.OpenMeteoAirQualityClient;
 import com.app.alertbroadcast.client.feign.OpenMeteoGeocodingClient;
 import com.app.alertbroadcast.client.model.airquality.GenericMetric;
-import com.app.alertbroadcast.client.model.airquality.pollen.PollenType;
+import com.app.alertbroadcast.client.model.airquality.pollen.PollutionType;
 import com.app.alertbroadcast.client.model.geocoding.Language;
 import com.app.alertbroadcast.client.model.geocoding.Results;
 import com.app.alertbroadcast.service.geocoding.GeocodingService;
@@ -21,13 +21,15 @@ public class AlertBroadcastApplication {
         OpenMeteoAirQualityClient openMeteoAirQualityClient = context.getBean(OpenMeteoAirQualityClient.class);
         LocalDate start = LocalDate.now();
         LocalDate end = start.plusDays(3);
-        GenericMetric alder = openMeteoAirQualityClient.getMetrics(52.249996, 16.75, PollenType.ALDER.getValue(), start, start);
-        GenericMetric grass = openMeteoAirQualityClient.getMetrics(52.249996, 16.75, PollenType.GRASS.getValue(), start, start);
-        GenericMetric birch = openMeteoAirQualityClient.getMetrics(52.249996, 16.75, PollenType.BIRCH.getValue(), start, start);
-    //    System.out.println(alder);
+        GenericMetric alder = openMeteoAirQualityClient.getMetrics(52.249996, 16.75, PollutionType.ALDER.getValue(), start, start);
+        GenericMetric grass = openMeteoAirQualityClient.getMetrics(52.249996, 16.75, PollutionType.GRASS.getValue(), start, start);
+        GenericMetric birch = openMeteoAirQualityClient.getMetrics(52.249996, 16.75, PollutionType.BIRCH.getValue(), start, start);
+        System.out.println(alder);
         System.out.println();
-     //   System.out.println(grass);
-   //     System.out.println(birch);
+        System.out.println(grass);
+        System.out.println(birch);
+        GenericMetric pm10 = openMeteoAirQualityClient.getMetrics(52.249996, 16.75, PollutionType.PM10.getValue(), start, start);
+        System.out.println(pm10);
 
         OpenMeteoGeocodingClient geocodingClient = context.getBean(OpenMeteoGeocodingClient.class);
         Results geocoding = geocodingClient.getGeocoding("Berlin", 10, Language.EN.name(), "json");
@@ -37,7 +39,7 @@ public class AlertBroadcastApplication {
         geocodingService.getCoordinates(id,"Berlin")
                 .ifPresent(coordinates -> {
                     GenericMetric metrics = openMeteoAirQualityClient.
-                            getMetrics(coordinates.getLatitude(), coordinates.getLongitude(), PollenType.BRICH.getValue(), start, end);
+                            getMetrics(coordinates.getLatitude(), coordinates.getLongitude(), PollutionType.BIRCH.getValue(), start, end);
                     System.out.println(metrics);
                 });
     }

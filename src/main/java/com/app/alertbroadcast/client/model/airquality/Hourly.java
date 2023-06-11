@@ -16,6 +16,6 @@ public class Hourly {
 
     private List<LocalDateTime> time;
 
-    private List<Double> pollen;
+    private List<Double> pollutionType;
 
 }

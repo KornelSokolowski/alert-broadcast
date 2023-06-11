@@ -1,6 +1,6 @@
 package com.app.alertbroadcast.client.model.airquality;
 
-import com.app.alertbroadcast.client.model.airquality.pollen.PollenType;
+import com.app.alertbroadcast.client.model.airquality.pollen.PollutionType;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -26,31 +26,32 @@ public class HourlyDeserializer extends StdDeserializer<Hourly> {
     public Hourly deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.findAndRegisterModules();
+        ObjectReader reader = mapper.readerFor(new TypeReference<List<LocalDateTime>>() {
+        });
         JsonNode node = parser.getCodec().readTree(parser);
+
         Logger logger = LoggerFactory.getLogger(HourlyDeserializer.class);
         try {
-            for (PollenType pollenType : PollenType.values()) {
-                JsonNode jsonNode = node.get(pollenType.getValue());
+            for (PollutionType pollutionType : PollutionType.values()) {
+                JsonNode jsonNode = node.get(pollutionType.getValue());
                 if (jsonNode != null) {
                     JsonNode nodeTime = node.get("time");
-                    ObjectReader reader = mapper.readerFor(new TypeReference<List<LocalDateTime>>() {
-                    });
                     List<LocalDateTime> time = reader.readValue(nodeTime);
-                    JsonNode pollenNode = node.get(pollenType.getValue());
+                    JsonNode pollutionNode = node.get(pollutionType.getValue());
                     reader = mapper.readerFor(new TypeReference<List<Double>>() {
                     });
-                    List<Double> pollen = reader.readValue(pollenNode);
-                    return createHourlyInstance(time, pollen);
+                    List<Double> pollution = reader.readValue(pollutionNode);
+
+                    return createHourlyInstance(time, pollution);
                 }
             }
-
         } catch (Exception exception) {
             logger.error("deserialization exception", exception);
         }
         return new Hourly();
     }
 
-    private Hourly createHourlyInstance(List<LocalDateTime> time, List<Double> pollen) {
-        return new Hourly(time, pollen);
+    private Hourly createHourlyInstance(List<LocalDateTime> time, List<Double> pollution) {
+        return new Hourly(time, pollution);
     }
 }
