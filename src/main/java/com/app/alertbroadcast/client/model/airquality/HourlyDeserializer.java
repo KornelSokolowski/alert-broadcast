@@ -1,6 +1,6 @@
 package com.app.alertbroadcast.client.model.airquality;
 
-import com.app.alertbroadcast.client.model.airquality.pollen.PollutionType;
+import com.app.alertbroadcast.client.model.airquality.pollution.PollutionType;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -33,11 +33,11 @@ public class HourlyDeserializer extends StdDeserializer<Hourly> {
         Logger logger = LoggerFactory.getLogger(HourlyDeserializer.class);
         try {
             for (PollutionType pollutionType : PollutionType.values()) {
-                JsonNode jsonNode = node.get(pollutionType.getValue());
+                JsonNode jsonNode = node.get(pollutionType.getPollutionName());
                 if (jsonNode != null) {
                     JsonNode nodeTime = node.get("time");
                     List<LocalDateTime> time = reader.readValue(nodeTime);
-                    JsonNode pollutionNode = node.get(pollutionType.getValue());
+                    JsonNode pollutionNode = node.get(pollutionType.getPollutionName());
                     reader = mapper.readerFor(new TypeReference<List<Double>>() {
                     });
                     List<Double> pollution = reader.readValue(pollutionNode);

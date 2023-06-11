@@ -1,4 +1,4 @@
-package com.app.alertbroadcast.client.model.airquality.pollen;
+package com.app.alertbroadcast.client.model.airquality.pollution;
 
 public enum PollutionType {
 
@@ -15,13 +15,13 @@ public enum PollutionType {
     AOD("aerosol_optical_depth"),
     UVINDEX("uv_index"), UVINDEXCLEARSKY("uv_index_clear_sky");
 
-    private final String value;
+    private final String pollutionName;
 
-    PollutionType(String value) {
-        this.value = value;
+    PollutionType(String pollutionName) {
+        this.pollutionName = pollutionName;
     }
 
-    public String getValue() {
-        return value;
+    public String getPollutionName() {
+        return pollutionName;
     }
 }

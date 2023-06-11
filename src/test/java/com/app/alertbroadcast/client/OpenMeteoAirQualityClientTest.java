@@ -5,7 +5,7 @@ import com.app.alertbroadcast.client.feign.OpenMeteoAirQualityClient;
 import com.app.alertbroadcast.client.model.airquality.GenericMetric;
 import com.app.alertbroadcast.client.model.airquality.Hourly;
 import com.app.alertbroadcast.client.model.airquality.HourlyUnits;
-import com.app.alertbroadcast.client.model.airquality.pollen.PollutionType;
+import com.app.alertbroadcast.client.model.airquality.pollution.PollutionType;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -67,35 +67,35 @@ public class OpenMeteoAirQualityClientTest extends AbstractMockedServerIT {
 
     private static Stream<Arguments> getPollenMetricsArguments() {
         return Stream.of(
-                Arguments.of("pollen-null-values-response.json", createHourlyUnits(), createHourlyWithArraysContainingNulls(), PollutionType.GRASS.getValue()),
-                Arguments.of("pollen-null-object-response.json", null, null, PollutionType.GRASS.getValue()),
-                Arguments.of("pollen-dummy-value-response.json", createHourlyUnits(), new Hourly(), PollutionType.GRASS.getValue()),
-                Arguments.of("pollen-correctly-response.json", createHourlyUnits(), createHourly(), PollutionType.GRASS.getValue()),
+                Arguments.of("pollen-null-values-response.json", createHourlyUnits(), createHourlyWithArraysContainingNulls(), PollutionType.GRASS.getPollutionName()),
+                Arguments.of("pollen-null-object-response.json", null, null, PollutionType.GRASS.getPollutionName()),
+                Arguments.of("pollen-dummy-value-response.json", createHourlyUnits(), new Hourly(), PollutionType.GRASS.getPollutionName()),
+                Arguments.of("pollen-correctly-response.json", createHourlyUnits(), createHourly(), PollutionType.GRASS.getPollutionName()),
 
-                Arguments.of("pollen-null-values-response.json", createHourlyUnits(), createHourlyWithArraysContainingNulls(), PollutionType.ALDER.getValue()),
-                Arguments.of("pollen-null-object-response.json", null, null, PollutionType.ALDER.getValue()),
-                Arguments.of("pollen-dummy-value-response.json", createHourlyUnits(), new Hourly(), PollutionType.ALDER.getValue()),
-                Arguments.of("pollen-correctly-response.json", createHourlyUnits(), createHourly(), PollutionType.ALDER.getValue()),
+                Arguments.of("pollen-null-values-response.json", createHourlyUnits(), createHourlyWithArraysContainingNulls(), PollutionType.ALDER.getPollutionName()),
+                Arguments.of("pollen-null-object-response.json", null, null, PollutionType.ALDER.getPollutionName()),
+                Arguments.of("pollen-dummy-value-response.json", createHourlyUnits(), new Hourly(), PollutionType.ALDER.getPollutionName()),
+                Arguments.of("pollen-correctly-response.json", createHourlyUnits(), createHourly(), PollutionType.ALDER.getPollutionName()),
 
-                Arguments.of("pollen-null-values-response.json", createHourlyUnits(), createHourlyWithArraysContainingNulls(), PollutionType.BIRCH.getValue()),
-                Arguments.of("pollen-null-object-response.json", null, null, PollutionType.BIRCH.getValue()),
-                Arguments.of("pollen-dummy-value-response.json", createHourlyUnits(), new Hourly(), PollutionType.BIRCH.getValue()),
-                Arguments.of("pollen-correctly-response.json", createHourlyUnits(), createHourly(), PollutionType.BIRCH.getValue()),
+                Arguments.of("pollen-null-values-response.json", createHourlyUnits(), createHourlyWithArraysContainingNulls(), PollutionType.BIRCH.getPollutionName()),
+                Arguments.of("pollen-null-object-response.json", null, null, PollutionType.BIRCH.getPollutionName()),
+                Arguments.of("pollen-dummy-value-response.json", createHourlyUnits(), new Hourly(), PollutionType.BIRCH.getPollutionName()),
+                Arguments.of("pollen-correctly-response.json", createHourlyUnits(), createHourly(), PollutionType.BIRCH.getPollutionName()),
 
-                Arguments.of("pollen-null-values-response.json", createHourlyUnits(), createHourlyWithArraysContainingNulls(), PollutionType.MUGWORT.getValue()),
-                Arguments.of("pollen-null-object-response.json", null, null, PollutionType.MUGWORT.getValue()),
-                Arguments.of("pollen-dummy-value-response.json", createHourlyUnits(), new Hourly(), PollutionType.MUGWORT.getValue()),
-                Arguments.of("pollen-correctly-response.json", createHourlyUnits(), createHourly(), PollutionType.MUGWORT.getValue()),
+                Arguments.of("pollen-null-values-response.json", createHourlyUnits(), createHourlyWithArraysContainingNulls(), PollutionType.MUGWORT.getPollutionName()),
+                Arguments.of("pollen-null-object-response.json", null, null, PollutionType.MUGWORT.getPollutionName()),
+                Arguments.of("pollen-dummy-value-response.json", createHourlyUnits(), new Hourly(), PollutionType.MUGWORT.getPollutionName()),
+                Arguments.of("pollen-correctly-response.json", createHourlyUnits(), createHourly(), PollutionType.MUGWORT.getPollutionName()),
 
-                Arguments.of("pollen-null-values-response.json", createHourlyUnits(), createHourlyWithArraysContainingNulls(), PollutionType.OLIVE.getValue()),
-                Arguments.of("pollen-null-object-response.json", null, null, PollutionType.OLIVE.getValue()),
-                Arguments.of("pollen-dummy-value-response.json", createHourlyUnits(), new Hourly(), PollutionType.OLIVE.getValue()),
-                Arguments.of("pollen-correctly-response.json", createHourlyUnits(), createHourly(), PollutionType.OLIVE.getValue()),
+                Arguments.of("pollen-null-values-response.json", createHourlyUnits(), createHourlyWithArraysContainingNulls(), PollutionType.OLIVE.getPollutionName()),
+                Arguments.of("pollen-null-object-response.json", null, null, PollutionType.OLIVE.getPollutionName()),
+                Arguments.of("pollen-dummy-value-response.json", createHourlyUnits(), new Hourly(), PollutionType.OLIVE.getPollutionName()),
+                Arguments.of("pollen-correctly-response.json", createHourlyUnits(), createHourly(), PollutionType.OLIVE.getPollutionName()),
 
-                Arguments.of("pollen-null-values-response.json", createHourlyUnits(), createHourlyWithArraysContainingNulls(), PollutionType.RAGWEED.getValue()),
-                Arguments.of("pollen-null-object-response.json", null, null, PollutionType.RAGWEED.getValue()),
-                Arguments.of("pollen-dummy-value-response.json", createHourlyUnits(), new Hourly(), PollutionType.RAGWEED.getValue()),
-                Arguments.of("pollen-correctly-response.json", createHourlyUnits(), createHourly(), PollutionType.RAGWEED.getValue())
+                Arguments.of("pollen-null-values-response.json", createHourlyUnits(), createHourlyWithArraysContainingNulls(), PollutionType.RAGWEED.getPollutionName()),
+                Arguments.of("pollen-null-object-response.json", null, null, PollutionType.RAGWEED.getPollutionName()),
+                Arguments.of("pollen-dummy-value-response.json", createHourlyUnits(), new Hourly(), PollutionType.RAGWEED.getPollutionName()),
+                Arguments.of("pollen-correctly-response.json", createHourlyUnits(), createHourly(), PollutionType.RAGWEED.getPollutionName())
 
         );
     }
@@ -123,55 +123,55 @@ public class OpenMeteoAirQualityClientTest extends AbstractMockedServerIT {
 
     private static Stream<Arguments> getSmogMetricsArguments() {
         return Stream.of(
-                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.PM10.getValue()),
-                Arguments.of("smog-null-object-response.json", null, null, PollutionType.PM10.getValue()),
-                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.PM10.getValue()),
-                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.PM10.getValue()),
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.PM10.getPollutionName()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.PM10.getPollutionName()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.PM10.getPollutionName()),
+                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.PM10.getPollutionName()),
 
-                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.PM25.getValue()),
-                Arguments.of("smog-null-object-response.json", null, null, PollutionType.PM25.getValue()),
-                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.PM25.getValue()),
-                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.PM25.getValue()),
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.PM25.getPollutionName()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.PM25.getPollutionName()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.PM25.getPollutionName()),
+                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.PM25.getPollutionName()),
 
-                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.DUST.getValue()),
-                Arguments.of("smog-null-object-response.json", null, null, PollutionType.DUST.getValue()),
-                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.DUST.getValue()),
-                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.DUST.getValue()),
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.DUST.getPollutionName()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.DUST.getPollutionName()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.DUST.getPollutionName()),
+                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.DUST.getPollutionName()),
 
-                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.PM10.getValue()),
-                Arguments.of("smog-null-object-response.json", null, null, PollutionType.PM10.getValue()),
-                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.PM10.getValue()),
-                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.PM10.getValue()),
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.PM10.getPollutionName()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.PM10.getPollutionName()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.PM10.getPollutionName()),
+                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.PM10.getPollutionName()),
 
-                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.CO.getValue()),
-                Arguments.of("smog-null-object-response.json", null, null, PollutionType.CO.getValue()),
-                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.CO.getValue()),
-                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.CO.getValue()),
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.CO.getPollutionName()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.CO.getPollutionName()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.CO.getPollutionName()),
+                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.CO.getPollutionName()),
 
-                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.NO2.getValue()),
-                Arguments.of("smog-null-object-response.json", null, null, PollutionType.NO2.getValue()),
-                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.NO2.getValue()),
-                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.NO2.getValue()),
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.NO2.getPollutionName()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.NO2.getPollutionName()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.NO2.getPollutionName()),
+                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.NO2.getPollutionName()),
 
-                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.SO2.getValue()),
-                Arguments.of("smog-null-object-response.json", null, null, PollutionType.SO2.getValue()),
-                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.SO2.getValue()),
-                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.SO2.getValue()),
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.SO2.getPollutionName()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.SO2.getPollutionName()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.SO2.getPollutionName()),
+                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.SO2.getPollutionName()),
 
-                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.O3.getValue()),
-                Arguments.of("smog-null-object-response.json", null, null, PollutionType.O3.getValue()),
-                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.O3.getValue()),
-                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.O3.getValue()),
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.O3.getPollutionName()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.O3.getPollutionName()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.O3.getPollutionName()),
+                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.O3.getPollutionName()),
 
-                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.NH3.getValue()),
-                Arguments.of("smog-null-object-response.json", null, null, PollutionType.NH3.getValue()),
-                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.NH3.getValue()),
-                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.NH3.getValue()),
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.NH3.getPollutionName()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.NH3.getPollutionName()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.NH3.getPollutionName()),
+                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.NH3.getPollutionName()),
 
-                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.DUST.getValue()),
-                Arguments.of("smog-null-object-response.json", null, null, PollutionType.DUST.getValue()),
-                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.DUST.getValue()),
-                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.DUST.getValue())
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.DUST.getPollutionName()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.DUST.getPollutionName()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.DUST.getPollutionName()),
+                Arguments.of("smog-correctly-response.json", createHourlyUnitsSmog(), createHourly(), PollutionType.DUST.getPollutionName())
         );
     }
 
@@ -198,20 +198,20 @@ public class OpenMeteoAirQualityClientTest extends AbstractMockedServerIT {
 
     private static Stream<Arguments> getIndexMetrics() {
         return Stream.of(
-                Arguments.of("index-correctly-response.json", createHourlyUnitswithEmptyPollenType(), createHourlyForIndexMetrics(), PollutionType.AOD.getValue()),
-                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.AOD.getValue()),
-                Arguments.of("smog-null-object-response.json", null, null, PollutionType.AOD.getValue()),
-                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.AOD.getValue()),
+                Arguments.of("index-correctly-response.json", createHourlyUnitswithEmptyPollenType(), createHourlyForIndexMetrics(), PollutionType.AOD.getPollutionName()),
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.AOD.getPollutionName()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.AOD.getPollutionName()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.AOD.getPollutionName()),
 
-                Arguments.of("index-correctly-response.json", createHourlyUnitswithEmptyPollenType(), createHourlyForIndexMetrics(), PollutionType.UVINDEX.getValue()),
-                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.UVINDEX.getValue()),
-                Arguments.of("smog-null-object-response.json", null, null, PollutionType.UVINDEX.getValue()),
-                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.UVINDEX.getValue()),
+                Arguments.of("index-correctly-response.json", createHourlyUnitswithEmptyPollenType(), createHourlyForIndexMetrics(), PollutionType.UVINDEX.getPollutionName()),
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.UVINDEX.getPollutionName()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.UVINDEX.getPollutionName()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.UVINDEX.getPollutionName()),
 
-                Arguments.of("index-correctly-response.json", createHourlyUnitswithEmptyPollenType(), createHourlyForIndexMetrics(), PollutionType.UVINDEXCLEARSKY.getValue()),
-                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.UVINDEXCLEARSKY.getValue()),
-                Arguments.of("smog-null-object-response.json", null, null, PollutionType.UVINDEXCLEARSKY.getValue()),
-                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.UVINDEXCLEARSKY.getValue())
+                Arguments.of("index-correctly-response.json", createHourlyUnitswithEmptyPollenType(), createHourlyForIndexMetrics(), PollutionType.UVINDEXCLEARSKY.getPollutionName()),
+                Arguments.of("smog-null-values-response.json", createHourlyUnitsSmog(), createHourlyWithArraysContainingNulls(), PollutionType.UVINDEXCLEARSKY.getPollutionName()),
+                Arguments.of("smog-null-object-response.json", null, null, PollutionType.UVINDEXCLEARSKY.getPollutionName()),
+                Arguments.of("smog-dummy-value-response.json", createHourlyUnitsSmog(), new Hourly(), PollutionType.UVINDEXCLEARSKY.getPollutionName())
 
 
         );
