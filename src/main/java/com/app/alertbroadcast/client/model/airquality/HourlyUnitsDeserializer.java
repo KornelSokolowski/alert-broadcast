@@ -1,6 +1,6 @@
 package com.app.alertbroadcast.client.model.airquality;
 
-import com.app.alertbroadcast.client.model.airquality.pollen.PollutionType;
+import com.app.alertbroadcast.client.model.airquality.pollution.PollutionType;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -22,10 +22,10 @@ public class HourlyUnitsDeserializer extends StdDeserializer<HourlyUnits> {
         Logger logger = LoggerFactory.getLogger(HourlyUnitsDeserializer.class);
        try {
            for (PollutionType pollutionType : PollutionType.values()) {
-               JsonNode jsonNode = node.get(pollutionType.getValue());
+               JsonNode jsonNode = node.get(pollutionType.getPollutionName());
                if (jsonNode != null) {
                    String time = node.get("time").asText();
-                   String pollution = node.get(pollutionType.getValue()).asText();
+                   String pollution = node.get(pollutionType.getPollutionName()).asText();
                    return createHourlyUnitsInstance(time, pollution);
                }
            }
