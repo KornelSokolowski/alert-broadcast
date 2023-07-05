@@ -1,0 +1,30 @@
+{
+  "latitude": 52.549995,
+  "longitude": 13.450001,
+  "generationtime_ms": 0.2110004425048828,
+  "utc_offset_seconds": 0,
+  "timezone": "GMT",
+  "timezone_abbreviation": "GMT",
+  "hourly_units": {
+    "time": "iso8601",
+    "sulphur_dioxide": "μg/m³"
+  },
+  "hourly": {
+    "time": [
+      "2023-06-26T00:00",
+      "2023-06-26T01:00",
+      "2023-06-26T02:00",
+      "2023-06-26T03:00",
+      "2023-06-26T04:00",
+      "2023-06-26T05:00"
+    ],
+    "sulphur_dioxide": [
+      91.2,
+      111.4,
+      201.5,
+      352.5,
+      611.5,
+      801.8
+    ]
+  }
+}
