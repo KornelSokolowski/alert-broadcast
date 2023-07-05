@@ -1,0 +1,30 @@
+{
+  "latitude": 52.549995,
+  "longitude": 13.450001,
+  "generationtime_ms": 0.19490718841552734,
+  "utc_offset_seconds": 0,
+  "timezone": "GMT",
+  "timezone_abbreviation": "GMT",
+  "hourly_units": {
+    "time": "iso8601",
+    "ozone": "μg/m³"
+  },
+  "hourly": {
+    "time": [
+      "2023-06-26T00:00",
+      "2023-06-26T01:00",
+      "2023-06-26T02:00",
+      "2023-06-26T03:00",
+      "2023-06-26T04:00",
+      "2023-06-26T05:00"
+    ],
+    "ozone": [
+      47.0,
+      58.0,
+      127.0,
+      143.0,
+      247.0,
+      452.0
+    ]
+  }
+}

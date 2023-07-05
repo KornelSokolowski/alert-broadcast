@@ -1,0 +1,37 @@
+pollution-properties:
+  pollution:
+    -
+      name: "pm2_5"
+      fair: 11
+      moderate: 21
+      poor: 25
+      veryPoor: 51
+      extremelyPoor: 75
+    -
+      name: "pm10"
+      fair: 21
+      moderate: 41
+      poor: 51
+      veryPoor: 101
+      extremelyPoor: 151
+    -
+      name: "ozone"
+      fair: 51
+      moderate: 101
+      poor: 131
+      veryPoor: 241
+      extremelyPoor: 381
+    -
+      name: "sulphur_dioxide"
+      fair: 101
+      moderate: 201
+      poor: 351
+      veryPoor: 501
+      extremelyPoor: 751
+    -
+      name: "nitrogen_dioxide"
+      fair: 41
+      moderate: 91
+      poor: 121
+      veryPoor: 231
+      extremelyPoor: 341
