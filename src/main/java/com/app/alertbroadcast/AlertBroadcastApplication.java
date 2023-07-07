@@ -7,6 +7,7 @@ import com.app.alertbroadcast.client.model.airquality.pollution.PollutionType;
 import com.app.alertbroadcast.client.model.geocoding.Language;
 import com.app.alertbroadcast.client.model.geocoding.Results;
 import com.app.alertbroadcast.export.Alert;
+import com.app.alertbroadcast.export.KafkaAlertProducer;
 import com.app.alertbroadcast.service.PollutionService;
 import com.app.alertbroadcast.service.geocoding.GeocodingService;
 import org.springframework.boot.SpringApplication;
@@ -48,7 +49,11 @@ public class AlertBroadcastApplication {
         PollutionService pollutionService = context.getBean(PollutionService.class);
         List<Alert> pollutionAlerts = pollutionService.getPollutionAlerts(PollutionType.O3);
         pollutionAlerts.forEach(alert -> System.out.println(alert));
-
+        KafkaAlertProducer kafkaAlertProducer = context.getBean(KafkaAlertProducer.class);
+        kafkaAlertProducer.sendDataSynchronously("Test","test");
+        kafkaAlertProducer.sendDataSynchronously("Test","test1");
+        kafkaAlertProducer.sendDataSynchronously("Test","test2");
+        kafkaAlertProducer.sendDataSynchronously("Test","test3");
+        kafkaAlertProducer.sendDataSynchronously("Test","test4");
     }
-
 }

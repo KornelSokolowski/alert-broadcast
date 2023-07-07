@@ -6,13 +6,5 @@ external:
 spring:
   kafka:
     producer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: localhost:29092
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
-
-pollutions:
-  PM10:
-    name: 'pm10'
-    value: 50
-  PM25:
-    name: 'pm2_5'
-    value: 25
