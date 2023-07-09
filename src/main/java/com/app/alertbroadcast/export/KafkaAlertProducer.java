@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class KafkaAlertProducer {
 
-    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, Alert> kafkaTemplate;
 
-    public void sendDataSynchronously(String topic, String message) {
+    public void sendDataSynchronously(String topic, String key, Alert message) {
         try {
-            SendResult<String, String> result = kafkaTemplate.send(topic, message).get();
+            SendResult<String, Alert> result = kafkaTemplate.send(topic, key, message).get();
             log.info("Sending data to kafka succeeded {}", result.toString());
         } catch (Exception e) {
             log.error("A exception occurred during sending kafka message ", e);

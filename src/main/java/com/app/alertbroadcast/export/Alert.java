@@ -2,10 +2,7 @@ package com.app.alertbroadcast.export;
 
 import com.app.alertbroadcast.client.model.airquality.pollution.PollutionAlertLevel;
 import com.app.alertbroadcast.client.model.airquality.pollution.PollutionType;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 

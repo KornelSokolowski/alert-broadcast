@@ -3,3 +3,13 @@ external:
     url: 'http://localhost:${test.server.port:2222}'
   open-meteo-geocoding:
     url: 'http://localhost:${test.server.port:2222}'
+
+spring:
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+export:
+  enable: true
+  cron: "0 0/1 * * * *"

@@ -2,6 +2,7 @@ package com.app.alertbroadcast.export;
 
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.junit.jupiter.api.AfterEach;
@@ -10,6 +11,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.support.serializer.JsonDeserializer;
+import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.springframework.kafka.test.EmbeddedKafkaBroker;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.kafka.test.utils.KafkaTestUtils;
@@ -29,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class KafkaAlertProducerTest {
 
     static final String TOPIC_NAME = "test.topic";
-    private static final String MESSAGE = "test message";
+    private static final Alert ALERT = new Alert();
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
@@ -45,20 +48,23 @@ class KafkaAlertProducerTest {
 
     @Test
     void testSendDataSynchronously() {
-        kafkaAlertProducer.sendDataSynchronously(TOPIC_NAME, MESSAGE);
-        Consumer<String, String> consumer = buildTestKafkaConsumer();
+        kafkaAlertProducer.sendDataSynchronously(TOPIC_NAME, "", ALERT);
+        Consumer<String, Alert> consumer = buildTestKafkaConsumer();
         embeddedKafkaBroker.consumeFromEmbeddedTopics(consumer, TOPIC_NAME);
-        ConsumerRecords<String, String> records = KafkaTestUtils.getRecords(consumer);
-        assertThat(records)
-                .hasSize(1)
-                .allSatisfy(record -> assertThat(record.value()).isEqualTo(MESSAGE));
+        ConsumerRecord<String, Alert> record = KafkaTestUtils.getSingleRecord(consumer, TOPIC_NAME);
+        assertThat(record.value())
+                .usingRecursiveComparison()
+                .isEqualTo(ALERT);
+
     }
 
-    private Consumer<String, String> buildTestKafkaConsumer() {
+    private <K, V> Consumer<K, V> buildTestKafkaConsumer() {
         Map<String, Object> consumerProps = KafkaTestUtils.consumerProps("testMetricsEncodedAsSent", "true", this.embeddedKafkaBroker);
         consumerProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-        consumerProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        DefaultKafkaConsumerFactory<String, String> factoryConsumer = new DefaultKafkaConsumerFactory<>(consumerProps);
-        return factoryConsumer.createConsumer();
+        consumerProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        consumerProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        consumerProps.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
+        DefaultKafkaConsumerFactory<K, V> consumerFactory = new DefaultKafkaConsumerFactory<>(consumerProps);
+        return consumerFactory.createConsumer();
     }
 }
