@@ -44,10 +44,10 @@ class KafkaAlertProducerTest {
     }
 
     @Test
-    void testSendDataSynchronously(){
-        kafkaAlertProducer.sendDataSynchronously(TOPIC_NAME,MESSAGE);
+    void testSendDataSynchronously() {
+        kafkaAlertProducer.sendDataSynchronously(TOPIC_NAME, MESSAGE);
         Consumer<String, String> consumer = buildTestKafkaConsumer();
-        embeddedKafkaBroker.consumeFromEmbeddedTopics(consumer,TOPIC_NAME);
+        embeddedKafkaBroker.consumeFromEmbeddedTopics(consumer, TOPIC_NAME);
         ConsumerRecords<String, String> records = KafkaTestUtils.getRecords(consumer);
         assertThat(records)
                 .hasSize(1)

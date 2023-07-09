@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(value = "open-meteo-geocoding", url = "${external.open-meteo-geocoding.url}", dismiss404 = true)
 public interface OpenMeteoGeocodingClient {
+
     String PATH = "v1/search";
 
     @GetMapping(

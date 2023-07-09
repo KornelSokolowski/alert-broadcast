@@ -3,6 +3,7 @@ package com.app.alertbroadcast.service;
 import com.app.alertbroadcast.client.feign.OpenMeteoAirQualityClient;
 import com.app.alertbroadcast.client.model.PollutionProperties;
 import com.app.alertbroadcast.client.model.airquality.GenericMetric;
+import com.app.alertbroadcast.client.model.airquality.Hourly;
 import com.app.alertbroadcast.client.model.airquality.pollution.PollutionAlertLevel;
 import com.app.alertbroadcast.client.model.airquality.pollution.PollutionType;
 import com.app.alertbroadcast.export.Alert;
@@ -33,10 +34,9 @@ public class PollutionService {
     }
 
     public Optional<Alert> getFirstAlert(PollutionType pollutionType, double alertLevel) {
-        GenericMetric metrics = openMeteoAirQualityClient.getMetrics(LATITUDE, LONGITUDE,
-                pollutionType.getPollutionName(), START, END);
-        List<LocalDateTime> localDateTimes = metrics.getHourly().getTime();
-        List<Double> doubleList = metrics.getHourly().getPollutionType();
+        Hourly hourly = extractHourly(pollutionType);
+        List<LocalDateTime> localDateTimes = hourly.getTime();
+        List<Double> doubleList = hourly.getPollutionType();
         if (doubleList != null && !doubleList.isEmpty() && !doubleList.contains(null)) {
             for (int j = 0; j < doubleList.size(); j++) {
                 if (doubleList.get(j) > alertLevel) {
@@ -49,14 +49,12 @@ public class PollutionService {
             }
         }
         return Optional.empty();
-
     }
 
     public List<Alert> getAlertsListByAlertLevel(PollutionType pollutionType, Double alertLevel) {
-        GenericMetric metrics = openMeteoAirQualityClient.getMetrics(LATITUDE, LONGITUDE,
-                pollutionType.getPollutionName(), START, END);
-        List<LocalDateTime> localDateTimes = metrics.getHourly().getTime();
-        List<Double> doubleList = metrics.getHourly().getPollutionType();
+        Hourly hourly = extractHourly(pollutionType);
+        List<LocalDateTime> localDateTimes = hourly.getTime();
+        List<Double> doubleList = hourly.getPollutionType();
         List<Alert> alerts = new ArrayList<>();
         if (doubleList != null && !doubleList.isEmpty() && !doubleList.contains(null)) {
             for (int i = 0; i < doubleList.size(); i++) {
@@ -79,10 +77,9 @@ public class PollutionService {
         List<Alert> alertsLevel = new ArrayList<>();
 
         optionalPollution.ifPresent(pollution -> {
-            GenericMetric metrics = openMeteoAirQualityClient.getMetrics(LATITUDE, LONGITUDE,
-                    pollutionType.getPollutionName(), START, END);
-            List<LocalDateTime> localDateTimes = metrics.getHourly().getTime();
-            List<Double> doubleList = metrics.getHourly().getPollutionType();
+            Hourly hourly = extractHourly(pollutionType);
+            List<LocalDateTime> localDateTimes = hourly.getTime();
+            List<Double> doubleList = hourly.getPollutionType();
 
             int fair = pollution.getFair();
             int moderate = pollution.getModerate();
@@ -133,7 +130,7 @@ public class PollutionService {
                         alert.setPollutionTypes(pollutionType);
                         alert.setDate(localDateTimes.get(i));
                         alert.setValue(doubleList.get(i));
-                        alert.setPollutionAlertLevel(PollutionAlertLevel.VERYPOOR);
+                        alert.setPollutionAlertLevel(PollutionAlertLevel.VERY_POOR);
                         alertsLevel.add(alert);
                     }
                     if (doubleList.get(i) >= extremelyPoor) {
@@ -141,13 +138,19 @@ public class PollutionService {
                         alert.setPollutionTypes(pollutionType);
                         alert.setDate(localDateTimes.get(i));
                         alert.setValue(doubleList.get(i));
-                        alert.setPollutionAlertLevel(PollutionAlertLevel.EXTREMLYPOOR);
+                        alert.setPollutionAlertLevel(PollutionAlertLevel.EXTREMELY_POOR);
                         alertsLevel.add(alert);
                     }
                 }
             }
         });
         return alertsLevel;
+    }
+
+    private Hourly extractHourly(PollutionType pollutionType) {
+        GenericMetric metrics = openMeteoAirQualityClient.getMetrics(LATITUDE, LONGITUDE,
+                pollutionType.getPollutionName(), START, END);
+        return metrics.getHourly();
     }
 }
 

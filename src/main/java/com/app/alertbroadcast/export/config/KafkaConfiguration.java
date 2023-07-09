@@ -20,14 +20,14 @@ public class KafkaConfiguration {
     private final KafkaProperties kafkaProperties;
 
     @Bean
-    public KafkaTemplate <String,String> kafkaTemplate(){
+    public KafkaTemplate<String, String> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 
     @Bean
-    public ProducerFactory<String,String> producerFactory(){
-        Map<String,Object> config = new HashMap<>(kafkaProperties.buildProducerProperties());
-        log.info("Kafka config: {}",config);
-    return new DefaultKafkaProducerFactory<>(config);
+    public ProducerFactory<String, String> producerFactory() {
+        Map<String, Object> config = new HashMap<>(kafkaProperties.buildProducerProperties());
+        log.info("Kafka config: {}", config);
+        return new DefaultKafkaProducerFactory<>(config);
     }
 }

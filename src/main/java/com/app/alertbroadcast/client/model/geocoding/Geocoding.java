@@ -9,6 +9,7 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class Geocoding {
+
     private Long id;
     private String name;
     private Double latitude;

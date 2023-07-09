@@ -36,7 +36,6 @@ class PollutionServiceTest extends AbstractMockedServerIT {
     @InjectMocks
     private PollutionService pollutionService;
 
-
     @ParameterizedTest()
     @MethodSource("getMetricsForAlerts")
     void getAlertsList(Double expectedAlertValue, Double alertLevel, LocalDateTime timeAlert) {
@@ -86,7 +85,7 @@ class PollutionServiceTest extends AbstractMockedServerIT {
 
 
     @Test
-    void getNull() {
+    void getNoAlerts() {
         Mockito.when(openMeteoAirQualityClient.getMetrics(any(), any(), any(), any(), any()))
                 .thenReturn(createGenericMetricForIndexMetricsPM25());
         Optional<Alert> firstAlert = pollutionService.getFirstAlert(PollutionType.PM10, 40.00);
@@ -197,7 +196,7 @@ class PollutionServiceTest extends AbstractMockedServerIT {
         alertForPoorLevelPollution.setValue(34.2);
         Alert alertForVeryPoorLevelPollution = new Alert();
         alertForVeryPoorLevelPollution.setPollutionTypes(PollutionType.PM25);
-        alertForVeryPoorLevelPollution.setPollutionAlertLevel(PollutionAlertLevel.VERYPOOR);
+        alertForVeryPoorLevelPollution.setPollutionAlertLevel(PollutionAlertLevel.VERY_POOR);
         alertForVeryPoorLevelPollution.setDate(LocalDateTime.of(2023, 6, 21, 03, 00));
         alertForVeryPoorLevelPollution.setValue(57.6);
         Alert alertForGoodLevelPollution = new Alert();
@@ -207,7 +206,7 @@ class PollutionServiceTest extends AbstractMockedServerIT {
         alertForGoodLevelPollution.setValue(5.6);
         Alert alertForExtremelyPoorLevelPollution = new Alert();
         alertForExtremelyPoorLevelPollution.setPollutionTypes(PollutionType.PM25);
-        alertForExtremelyPoorLevelPollution.setPollutionAlertLevel(PollutionAlertLevel.EXTREMLYPOOR);
+        alertForExtremelyPoorLevelPollution.setPollutionAlertLevel(PollutionAlertLevel.EXTREMELY_POOR);
         alertForExtremelyPoorLevelPollution.setDate(LocalDateTime.of(2023, 6, 21, 23, 00));
         alertForExtremelyPoorLevelPollution.setValue(75.8);
         return List.of(alertForFairLevelPollution, alertForModerateLevelPollution,
@@ -238,12 +237,12 @@ class PollutionServiceTest extends AbstractMockedServerIT {
         alertForPoorLevelPollution.setValue(56.0);
         Alert alertForVeryPoorLevelPollution = new Alert();
         alertForVeryPoorLevelPollution.setPollutionTypes(PollutionType.PM10);
-        alertForVeryPoorLevelPollution.setPollutionAlertLevel(PollutionAlertLevel.VERYPOOR);
+        alertForVeryPoorLevelPollution.setPollutionAlertLevel(PollutionAlertLevel.VERY_POOR);
         alertForVeryPoorLevelPollution.setDate(LocalDateTime.of(2023, 6, 26, 04, 00));
         alertForVeryPoorLevelPollution.setValue(116.8);
         Alert alertForExtremelyPoorLevelPollution = new Alert();
         alertForExtremelyPoorLevelPollution.setPollutionTypes(PollutionType.PM10);
-        alertForExtremelyPoorLevelPollution.setPollutionAlertLevel(PollutionAlertLevel.EXTREMLYPOOR);
+        alertForExtremelyPoorLevelPollution.setPollutionAlertLevel(PollutionAlertLevel.EXTREMELY_POOR);
         alertForExtremelyPoorLevelPollution.setDate(LocalDateTime.of(2023, 6, 26, 05, 00));
         alertForExtremelyPoorLevelPollution.setValue(277.8);
 
@@ -275,12 +274,12 @@ class PollutionServiceTest extends AbstractMockedServerIT {
         alertForPoorLevelPollution.setValue(143.0);
         Alert alertForVeryPoorLevelPollution = new Alert();
         alertForVeryPoorLevelPollution.setPollutionTypes(PollutionType.O3);
-        alertForVeryPoorLevelPollution.setPollutionAlertLevel(PollutionAlertLevel.VERYPOOR);
+        alertForVeryPoorLevelPollution.setPollutionAlertLevel(PollutionAlertLevel.VERY_POOR);
         alertForVeryPoorLevelPollution.setDate(LocalDateTime.of(2023, 6, 26, 04, 00));
         alertForVeryPoorLevelPollution.setValue(247.0);
         Alert alertForExtremelyPoorLevelPollution = new Alert();
         alertForExtremelyPoorLevelPollution.setPollutionTypes(PollutionType.O3);
-        alertForExtremelyPoorLevelPollution.setPollutionAlertLevel(PollutionAlertLevel.EXTREMLYPOOR);
+        alertForExtremelyPoorLevelPollution.setPollutionAlertLevel(PollutionAlertLevel.EXTREMELY_POOR);
         alertForExtremelyPoorLevelPollution.setDate(LocalDateTime.of(2023, 6, 26, 05, 00));
         alertForExtremelyPoorLevelPollution.setValue(452.0);
         return List.of(alertForGoodLevelPollution, alertForFairLevelPollution, alertForModerateLevelPollution,
@@ -311,12 +310,12 @@ class PollutionServiceTest extends AbstractMockedServerIT {
         alertForPoorLevelPollution.setValue(352.5);
         Alert alertForVeryPoorLevelPollution = new Alert();
         alertForVeryPoorLevelPollution.setPollutionTypes(PollutionType.SO2);
-        alertForVeryPoorLevelPollution.setPollutionAlertLevel(PollutionAlertLevel.VERYPOOR);
+        alertForVeryPoorLevelPollution.setPollutionAlertLevel(PollutionAlertLevel.VERY_POOR);
         alertForVeryPoorLevelPollution.setDate(LocalDateTime.of(2023, 6, 26, 04, 00));
         alertForVeryPoorLevelPollution.setValue(611.5);
         Alert alertForExtremelyPoorLevelPollution = new Alert();
         alertForExtremelyPoorLevelPollution.setPollutionTypes(PollutionType.SO2);
-        alertForExtremelyPoorLevelPollution.setPollutionAlertLevel(PollutionAlertLevel.EXTREMLYPOOR);
+        alertForExtremelyPoorLevelPollution.setPollutionAlertLevel(PollutionAlertLevel.EXTREMELY_POOR);
         alertForExtremelyPoorLevelPollution.setDate(LocalDateTime.of(2023, 6, 26, 05, 00));
         alertForExtremelyPoorLevelPollution.setValue(801.8);
         return List.of(alertForGoodLevelPollution, alertForFairLevelPollution, alertForModerateLevelPollution,
@@ -347,12 +346,12 @@ class PollutionServiceTest extends AbstractMockedServerIT {
         alertForPoorLevelPollution.setValue(128.0);
         Alert alertForVeryPoorLevelPollution = new Alert();
         alertForVeryPoorLevelPollution.setPollutionTypes(PollutionType.NO2);
-        alertForVeryPoorLevelPollution.setPollutionAlertLevel(PollutionAlertLevel.VERYPOOR);
+        alertForVeryPoorLevelPollution.setPollutionAlertLevel(PollutionAlertLevel.VERY_POOR);
         alertForVeryPoorLevelPollution.setDate(LocalDateTime.of(2023, 6, 26, 04, 00));
         alertForVeryPoorLevelPollution.setValue(246.1);
         Alert alertForExtremelyPoorLevelPollution = new Alert();
         alertForExtremelyPoorLevelPollution.setPollutionTypes(PollutionType.NO2);
-        alertForExtremelyPoorLevelPollution.setPollutionAlertLevel(PollutionAlertLevel.EXTREMLYPOOR);
+        alertForExtremelyPoorLevelPollution.setPollutionAlertLevel(PollutionAlertLevel.EXTREMELY_POOR);
         alertForExtremelyPoorLevelPollution.setDate(LocalDateTime.of(2023, 6, 26, 05, 00));
         alertForExtremelyPoorLevelPollution.setValue(378.2);
         return List.of(alertForGoodLevelPollution, alertForFairLevelPollution, alertForModerateLevelPollution,

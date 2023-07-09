@@ -42,7 +42,6 @@ public class OpenMeteoAirQualityClientTest extends AbstractMockedServerIT {
     @Autowired
     private OpenMeteoAirQualityClient openMeteoAirQualityClient;
 
-
     @ParameterizedTest
     @MethodSource("getPollenMetricsArguments")
     void getPollenMetrics(String path, HourlyUnits hourlyUnits, Hourly hourly, String pollutionType, SoftAssertions softly) {

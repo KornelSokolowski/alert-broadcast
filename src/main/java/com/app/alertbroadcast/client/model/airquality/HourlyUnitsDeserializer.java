@@ -20,16 +20,18 @@ public class HourlyUnitsDeserializer extends StdDeserializer<HourlyUnits> {
     public HourlyUnits deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException {
         JsonNode node = parser.getCodec().readTree(parser);
         Logger logger = LoggerFactory.getLogger(HourlyUnitsDeserializer.class);
-       try {
-           for (PollutionType pollutionType : PollutionType.values()) {
-               JsonNode jsonNode = node.get(pollutionType.getPollutionName());
-               if (jsonNode != null) {
-                   String time = node.get("time").asText();
-                   String pollution = node.get(pollutionType.getPollutionName()).asText();
-                   return createHourlyUnitsInstance(time, pollution);
-               }
-           }
-       }catch (Exception exception){logger.error("deserialization exception. ",exception);}
+        try {
+            for (PollutionType pollutionType : PollutionType.values()) {
+                JsonNode jsonNode = node.get(pollutionType.getPollutionName());
+                if (jsonNode != null) {
+                    String time = node.get("time").asText();
+                    String pollution = node.get(pollutionType.getPollutionName()).asText();
+                    return createHourlyUnitsInstance(time, pollution);
+                }
+            }
+        } catch (Exception exception) {
+            logger.error("deserialization exception. ", exception);
+        }
         return new HourlyUnits();
     }
 
