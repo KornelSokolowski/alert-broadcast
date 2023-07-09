@@ -21,7 +21,6 @@ public class HourlyDeserializer extends StdDeserializer<Hourly> {
         super(Hourly.class);
     }
 
-
     @Override
     public Hourly deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException {
         ObjectMapper mapper = new ObjectMapper();

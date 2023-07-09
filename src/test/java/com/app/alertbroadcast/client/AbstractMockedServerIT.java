@@ -41,7 +41,7 @@ public abstract class AbstractMockedServerIT {
     }
 
     @AfterEach
-    void resetMockServerExpections() {
+    void resetMockServerExpectations() {
         mockserver.reset();
     }
 

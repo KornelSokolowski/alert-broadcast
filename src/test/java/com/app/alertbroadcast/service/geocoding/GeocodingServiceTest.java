@@ -32,7 +32,6 @@ class GeocodingServiceTest {
 
     @Test
     void getGeocodingList() {
-
         Results results = new Results();
         results.setResults(createGeocodingList());
 
@@ -43,13 +42,12 @@ class GeocodingServiceTest {
 
     @Test
     void getCoordinatesList() {
-     Coordinates coordinates = new Coordinates();
-     coordinates.setLatitude(49.68333);
-     coordinates.setLongitude(22.56667);
+        Coordinates coordinates = new Coordinates();
+        coordinates.setLatitude(49.68333);
+        coordinates.setLongitude(22.56667);
         when(openMeteoGeocodingClient.getGeocoding(NAME, COUNT, LANGUAGE, FORMAT)).thenReturn(createResultList());
         Optional<Coordinates> coordinates1 = geocodingService.getCoordinates(766067L, NAME);
         Assertions.assertThat(coordinates1).hasValue(coordinates);
-
     }
 
     private Results createResultList() {

@@ -14,7 +14,6 @@ import java.util.List;
 @Configuration
 @PropertySource(value = "classpath:pollution.yml", factory = YamlPropertySourceFactory.class)
 @ConfigurationProperties(prefix = "pollution-properties")
-
 public class PollutionProperties {
 
     @Getter
