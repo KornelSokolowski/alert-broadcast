@@ -5,7 +5,6 @@ import com.app.alertbroadcast.export.Alert;
 import com.app.alertbroadcast.export.KafkaAlertProducer;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
@@ -21,14 +20,15 @@ public class ExportProcessingService {
         this.kafkaAlertProducer = kafkaAlertProducer;
     }
 
+
     public void startExport() {
-        LocalDateTime dateTime = LocalDateTime.now();
-        String formattedTimestamp = dateTime.format(DateTimeFormatter.ISO_DATE_TIME);
         Arrays.stream(PollutionType.values())
                 .forEach(pollutionType -> {
                     List<Alert> pollutionAlerts = pollutionService.getPollutionAlerts(pollutionType);
                     pollutionAlerts.forEach(alert ->
-                            kafkaAlertProducer.sendDataSynchronously(pollutionType.getPollutionName() + "_" + alert.getPollutionAlertLevel().getDescription(), formattedTimestamp, alert));
+                            kafkaAlertProducer.sendDataSynchronously(pollutionType.getPollutionName() + "_" + alert.getPollutionAlertLevel().getDescription(),
+                                    alert.getDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm")),
+                                    alert));
                 });
     }
 }

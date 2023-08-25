@@ -1,5 +1,6 @@
 package com.app.alertbroadcast.client;
 
+import com.app.alertbroadcast.client.model.airquality.pollution.PollutionType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import lombok.SneakyThrows;
@@ -79,9 +80,25 @@ public abstract class AbstractMockedServerIT {
                                 .withStatusCode(HttpStatus.OK.value())
                                 .withBody(json(mockedResponse)));
     }
+    private void prepareMockResponseWithParameters(String path, String mockedResponse, PollutionType pollutionType) {
+        mockserver
+                .when(
+                        request()
+                                .withMethod(HttpMethod.GET.name())
+                                .withPath(path)
+                                .withQueryStringParameter("hourly",pollutionType.getPollutionName()))
+                .respond(
+                        response()
+                                .withStatusCode(HttpStatus.OK.value())
+                                .withBody(json(mockedResponse)));
+    }
 
     protected void prepareMockedResponseFromFile(String urlPath, String mockedResponseFilePath) {
         String mockedResponse = load(mockedResponseFilePath);
         prepareMockResponse(urlPath, mockedResponse);
+    }
+    protected void prepareMockedResponseResponseFromFileWithParameters(String urlPath, String mockedResponseFilePath, PollutionType pollutionType){
+        String mockedResponse = load(mockedResponseFilePath);
+        prepareMockResponseWithParameters(urlPath, mockedResponse, pollutionType);
     }
 }

@@ -18,7 +18,7 @@ public interface OpenMeteoAirQualityClient {
             params = {"latitude", "longitude", "hourly", "start_date", "end_date"}
     )
     GenericMetric getMetrics(
-            @RequestParam Double latitude, @RequestParam Double longitude, @RequestParam String hourly,
+            @RequestParam Double latitude, @RequestParam Double longitude, @RequestParam(name = "hourly") String pollutionType,
             @RequestParam(name = "start_date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
             @RequestParam(name = "end_date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate);
 

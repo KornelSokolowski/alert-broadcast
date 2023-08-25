@@ -1,22 +1,9 @@
 package com.app.alertbroadcast;
 
-import com.app.alertbroadcast.client.feign.OpenMeteoAirQualityClient;
-import com.app.alertbroadcast.client.feign.OpenMeteoGeocodingClient;
-import com.app.alertbroadcast.client.model.airquality.GenericMetric;
-import com.app.alertbroadcast.client.model.airquality.pollution.PollutionType;
-import com.app.alertbroadcast.client.model.geocoding.Language;
-import com.app.alertbroadcast.client.model.geocoding.Results;
-import com.app.alertbroadcast.export.Alert;
-import com.app.alertbroadcast.export.KafkaAlertProducer;
-import com.app.alertbroadcast.service.PollutionService;
-import com.app.alertbroadcast.service.geocoding.GeocodingService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableScheduling;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @SpringBootApplication
 @EnableScheduling

@@ -9,7 +9,10 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-
+    topics:
+      pm10_Good,pm10_Fair,pm10_Moderate,pm10_Poor,pm10_Very_poor,pm10_Extremely_poor,ozone_Good,ozone_Fair,ozone_Moderate,ozone_Poor,ozone_Very_poor,ozone_Extremely_poor,
+      pm2_5_Good,pm2_5_Fair,pm2_5_Moderate,pm2_5_Poor,pm2_5_Very_poor,pm2_5_Extremely_poor,sulphur_dioxide_Good,sulphur_dioxide_Fair,sulphur_dioxide_Moderate,sulphur_dioxide_Poor,sulphur_dioxide_Very_poor,sulphur_dioxide_Extremely_poor,
+      nitrogen_dioxide_Good,nitrogen_dioxide_Fair,nitrogen_dioxide_Moderate,nitrogen_dioxide_Poor,nitrogen_dioxide_Very_poor,nitrogen_dioxide_Extremely_poor
 export:
   enable: true
   cron: "0 0/1 * * * *"
