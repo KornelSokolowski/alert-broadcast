@@ -1,6 +1,7 @@
 package com.app.alertbroadcast.export.config;
 
 import com.app.alertbroadcast.export.Alert;
+import com.app.alertbroadcast.export.WeatherInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
@@ -26,7 +27,16 @@ public class KafkaConfiguration {
     }
 
     @Bean
+    public KafkaTemplate<String, WeatherInfo> weatherInfoKafkaTemplate(){return new KafkaTemplate<>(producerFactory1());}
+
+    @Bean
     public ProducerFactory<String, Alert> producerFactory() {
+        Map<String, Object> config = new HashMap<>(kafkaProperties.buildProducerProperties());
+         log.info("Kafka config: {}", config);
+        return new DefaultKafkaProducerFactory<>(config);
+    }
+    @Bean
+    public ProducerFactory<String,WeatherInfo> producerFactory1(){
         Map<String, Object> config = new HashMap<>(kafkaProperties.buildProducerProperties());
         log.info("Kafka config: {}", config);
         return new DefaultKafkaProducerFactory<>(config);

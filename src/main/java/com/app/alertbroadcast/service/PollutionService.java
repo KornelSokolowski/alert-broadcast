@@ -1,7 +1,7 @@
 package com.app.alertbroadcast.service;
 
 import com.app.alertbroadcast.client.feign.OpenMeteoAirQualityClient;
-import com.app.alertbroadcast.client.model.PollutionProperties;
+import com.app.alertbroadcast.client.model.airquality.PollutionProperties;
 import com.app.alertbroadcast.client.model.airquality.GenericMetric;
 import com.app.alertbroadcast.client.model.airquality.Hourly;
 import com.app.alertbroadcast.client.model.airquality.pollution.PollutionAlertLevel;

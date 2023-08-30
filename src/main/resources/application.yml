@@ -3,6 +3,8 @@ external:
     url: https://air-quality-api.open-meteo.com
   open-meteo-geocoding:
     url: https://geocoding-api.open-meteo.com
+  open-meteo-weather-forecast:
+    url: https://api.open-meteo.com
 spring:
   kafka:
     producer:

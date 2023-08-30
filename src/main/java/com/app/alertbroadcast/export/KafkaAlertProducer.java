@@ -13,6 +13,7 @@ public class KafkaAlertProducer {
 
     private final KafkaTemplate<String, Alert> kafkaTemplate;
 
+
     public void sendDataSynchronously(String topic, String key, Alert message) {
         try {
             SendResult<String, Alert> result = kafkaTemplate.send(topic, key, message).get();

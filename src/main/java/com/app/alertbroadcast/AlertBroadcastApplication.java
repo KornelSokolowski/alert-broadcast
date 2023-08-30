@@ -12,12 +12,15 @@ public class AlertBroadcastApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(AlertBroadcastApplication.class, args);
 //        OpenMeteoAirQualityClient openMeteoAirQualityClient = context.getBean(OpenMeteoAirQualityClient.class);
+//        OpenMeteoWeatherForecastClient forecastClient = context.getBean(OpenMeteoWeatherForecastClient.class);
 //        LocalDate start = LocalDate.now();
 //        LocalDate end = start.plusDays(3);
-//        GenericMetric alder = openMeteoAirQualityClient.getMetrics(52.249996, 16.75, PollutionType.ALDER.getPollutionName(), start, start);
+//        WeatherMetric temp = forecastClient.getMetrics(52.249996, 16.75,"temperature_2m",start,end);
+//       System.out.println(temp);
+        //  GenericMetric alder = openMeteoAirQualityClient.getMetrics(52.249996, 16.75, PollutionType.ALDER.getPollutionName(), start, start);
 //        GenericMetric grass = openMeteoAirQualityClient.getMetrics(52.249996, 16.75, PollutionType.GRASS.getPollutionName(), start, start);
 //        GenericMetric birch = openMeteoAirQualityClient.getMetrics(52.249996, 16.75, PollutionType.BIRCH.getPollutionName(), start, start);
-//        System.out.println(alder);
+        //       System.out.println(alder);
 //        System.out.println();
 //        System.out.println(grass);
 //        System.out.println(birch);

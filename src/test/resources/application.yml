@@ -3,6 +3,8 @@ external:
     url: 'http://localhost:${test.server.port:2222}'
   open-meteo-geocoding:
     url: 'http://localhost:${test.server.port:2222}'
+  open-meteo-weather-forecast:
+    url: 'http://localhost:${test.server.port:2222}'
 
 spring:
   kafka:
