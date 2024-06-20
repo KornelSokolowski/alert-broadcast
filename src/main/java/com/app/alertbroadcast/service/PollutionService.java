@@ -81,11 +81,11 @@ public class PollutionService {
             List<LocalDateTime> localDateTimes = hourly.getTime();
             List<Double> doubleList = hourly.getPollutionType();
 
-            int fair = pollution.getFair();
-            int moderate = pollution.getModerate();
-            int poor = pollution.getPoor();
-            int veryPoor = pollution.getVeryPoor();
-            int extremelyPoor = pollution.getExtremelyPoor();
+            double fair = pollution.getFair();
+            double moderate = pollution.getModerate();
+            double poor = pollution.getPoor();
+            double veryPoor = pollution.getVeryPoor();
+            double extremelyPoor = pollution.getExtremelyPoor();
             log.info("alert levels ## fair: {}, moderate: {}, poor: {}, very poor: {}, extremely poor: {}", fair, moderate, poor, veryPoor, extremelyPoor);
 
             if (doubleList != null && !doubleList.isEmpty() && !doubleList.contains(null)) {

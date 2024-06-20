@@ -4,16 +4,16 @@ public enum PollutionAlertLevel {
 
     GOOD("Good"), FAIR("Fair"),
     MODERATE("Moderate"), POOR("Poor"),
-    VERY_POOR("Very poor"), EXTREMELY_POOR("Extremely poor");
+    VERY_POOR("Very_poor"), EXTREMELY_POOR("Extremely_poor");
 
-    private final String pollutionAlertLevel;
+    private final String description;
 
     PollutionAlertLevel(String pollutionAlertLevel) {
-        this.pollutionAlertLevel = pollutionAlertLevel;
+        this.description = pollutionAlertLevel;
     }
 
-    public String getPollutionAlertLevel() {
-        return pollutionAlertLevel;
+    public String getDescription() {
+        return description;
     }
 
 }

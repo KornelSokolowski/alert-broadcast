@@ -35,3 +35,66 @@ pollution-properties:
       poor: 121
       veryPoor: 231
       extremelyPoor: 341
+    -
+      name: "carbon_monoxide"
+      fair: 111
+      moderate: 201
+      poor: 1001
+      veryPoor: 1071
+      extremelyPoor: 3400
+    -
+      name: "ammonia"
+      fair: 0.44
+      moderate: 0.65
+      poor: 1.26
+      veryPoor: 1.66
+      extremelyPoor: 2.04
+    -
+      name: "dust"
+      fair: 2
+      moderate: 4
+      poor: 6
+      veryPoor: 8
+      extremelyPoor: 10
+    -
+      name: "grass_pollen"
+      fair: 1
+      moderate: 5
+      poor: 20
+      veryPoor: 150
+      extremelyPoor: 201
+    -
+      name: "alder_pollen"
+      fair: 1
+      moderate: 11
+      poor: 51
+      veryPoor: 101
+      extremelyPoor: 301
+    -
+      name: "birch_pollen"
+      fair: 1
+      moderate: 11
+      poor: 51
+      veryPoor: 101
+      extremelyPoor: 301
+    -
+      name: "olive_pollen"
+      fair: 1
+      moderate: 11
+      poor: 51
+      veryPoor: 201
+      extremelyPoor: 401
+    -
+      name: "ragweed_pollen"
+      fair: 1
+      moderate: 11
+      poor: 51
+      veryPoor: 101
+      extremelyPoor: 301
+    -
+      name: "mugwort_pollen"
+      fair: 1
+      moderate: 11
+      poor: 51
+      veryPoor: 101
+      extremelyPoor: 301
